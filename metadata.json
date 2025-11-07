@@ -1,0 +1,7 @@
+{
+  "name": "Copy of News Audio Summarizer",
+  "description": "An application that takes a news article, summarizes it using AI, and then converts the summary into an audio file for listening on the go.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
