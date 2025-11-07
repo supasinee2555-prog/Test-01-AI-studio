@@ -1,15 +1,16 @@
 import React, { forwardRef } from 'react';
 import { HistoryEntry } from '../App';
-import { TrashIcon } from './icons';
+import { TrashIcon, BookmarkIcon, BookmarkSolidIcon } from './icons';
 
 interface HistoryItemProps {
   entry: HistoryEntry;
   onLoad: (entry: HistoryEntry) => void;
   onDelete: (id: string) => void;
+  onToggleBookmark: (id: string) => void;
   isFocused: boolean;
 }
 
-export const HistoryItem = forwardRef<HTMLDivElement, HistoryItemProps>(({ entry, onLoad, onDelete, isFocused }, ref) => {
+export const HistoryItem = forwardRef<HTMLDivElement, HistoryItemProps>(({ entry, onLoad, onDelete, onToggleBookmark, isFocused }, ref) => {
   const formattedDate = new Date(entry.createdAt).toLocaleString(undefined, {
     dateStyle: 'medium',
     timeStyle: 'short'
@@ -30,6 +31,13 @@ export const HistoryItem = forwardRef<HTMLDivElement, HistoryItemProps>(({ entry
           className="px-3 py-1 text-sm font-semibold text-cyan-300 bg-cyan-900/50 rounded-md hover:bg-cyan-800/70 transition-colors"
         >
           Load
+        </button>
+        <button
+          onClick={() => onToggleBookmark(entry.id)}
+          className={`p-2 rounded-full transition-colors ${entry.bookmarked ? 'text-yellow-400 hover:bg-yellow-900/50' : 'text-slate-400 hover:text-yellow-400 hover:bg-yellow-900/50'}`}
+          aria-label={entry.bookmarked ? 'Remove bookmark' : 'Add bookmark'}
+        >
+            {entry.bookmarked ? <BookmarkSolidIcon className="w-4 h-4" /> : <BookmarkIcon className="w-4 h-4" />}
         </button>
         <button
           onClick={() => onDelete(entry.id)}
